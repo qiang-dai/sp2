@@ -11,13 +11,16 @@ import org.apache.spark.sql.SparkSession;
 /**
  * Created by xinmei365 on 2017-10-17
  */
-public class RandomForest {
-    public static void main(String[] args) {
-        RandomForest randomForest = new RandomForest();
-        randomForest.token();
-    }
+public class RandomForest2 {
+//    public static void main(String[] args) {
+//        RandomForest randomForest = new RandomForest();
+//        randomForest.token();
+//    }
+    public RandomForest2() {}
 
-    public void token() {
+
+    public String token() {
+
         SparkConf conf = new SparkConf()
                 .set("spark.streaming.clock", "org.apache.spark.util.ManualClock");
         SparkSession spark = SparkSession.builder()
@@ -25,7 +28,6 @@ public class RandomForest {
                 .appName("JavaStatistics")
                 .config(conf)
                 .getOrCreate();
-
         Tokenizer tokenizer = Tokenizer.load("/Users/xinmei365/news/tokenizer");
         HashingTF hashingTF = HashingTF.load("/Users/xinmei365/news/hashing-tf");
         OneVsRestModel oneVsRestModel = OneVsRestModel.load("/Users/xinmei365/news/ovr_model");
@@ -38,5 +40,6 @@ public class RandomForest {
         Dataset<Row> oneRes = oneVsRestModel.transform(hashRes);
         System.out.println(oneRes);
         oneRes.take(1);
+        return "RandomForest run over";
     }
 }

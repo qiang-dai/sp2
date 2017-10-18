@@ -11,8 +11,10 @@ public class HelloController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
+        RandomForest2 randomForest = new RandomForest2();
+        String result = randomForest.token();
 
-		model.addAttribute("message", "Spring 4 MVC Hello World");
+		model.addAttribute("message", "Spring 4 MVC Hello World" + result);
 		return "hello";
 
 	}
