@@ -15,19 +15,19 @@ public class RandomForest2 {
 //    public static void main(String[] args) {
 //        RandomForest randomForest = new RandomForest();
 //        randomForest.token();
+
+    SparkConf conf = new SparkConf()
+            .set("spark.streaming.clock", "org.apache.spark.util.ManualClock");
+    SparkSession spark = SparkSession.builder()
+            .master("local[2]")
+            .appName("JavaStatistics")
+            .config(conf)
+            .getOrCreate();
 //    }
     public RandomForest2() {}
 
 
     public String token() {
-
-        SparkConf conf = new SparkConf()
-                .set("spark.streaming.clock", "org.apache.spark.util.ManualClock");
-        SparkSession spark = SparkSession.builder()
-                .master("local[2]")
-                .appName("JavaStatistics")
-                .config(conf)
-                .getOrCreate();
         Tokenizer tokenizer = Tokenizer.load("/Users/xinmei365/news/tokenizer");
         HashingTF hashingTF = HashingTF.load("/Users/xinmei365/news/hashing-tf");
         OneVsRestModel oneVsRestModel = OneVsRestModel.load("/Users/xinmei365/news/ovr_model");
